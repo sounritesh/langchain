@@ -338,7 +338,7 @@ class BaseOpenAI(BaseLLM, BaseModel):
                 )
             params["max_tokens"] = self.max_tokens_for_prompt(prompts[0])
         sub_prompts = [
-            prompts[i : i + self.batch_size]
+            prompts[i: i + self.batch_size]
             for i in range(0, len(prompts), self.batch_size)
         ]
         return sub_prompts
@@ -349,7 +349,7 @@ class BaseOpenAI(BaseLLM, BaseModel):
         """Create the LLMResult from the choices and prompts."""
         generations = []
         for i, _ in enumerate(prompts):
-            sub_choices = choices[i * self.n : (i + 1) * self.n]
+            sub_choices = choices[i * self.n: (i + 1) * self.n]
             generations.append(
                 [
                     Generation(
@@ -640,6 +640,7 @@ class OpenAIChat(BaseLLM, BaseModel):
             )
         else:
             full_response = completion_with_retry(self, messages=messages, **params)
+            print(full_response["usage"])
             return LLMResult(
                 generations=[
                     [Generation(text=full_response["choices"][0]["message"]["content"])]
@@ -676,6 +677,7 @@ class OpenAIChat(BaseLLM, BaseModel):
             full_response = await acompletion_with_retry(
                 self, messages=messages, **params
             )
+            print(full_response["usage"])
             return LLMResult(
                 generations=[
                     [Generation(text=full_response["choices"][0]["message"]["content"])]
