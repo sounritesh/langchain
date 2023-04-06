@@ -362,7 +362,6 @@ class BaseOpenAI(BaseLLM, BaseModel):
                     for choice in sub_choices
                 ]
             )
-        print("Token Usage: ", token_usage)
         return LLMResult(
             generations=generations, llm_output={"token_usage": token_usage}
         )
@@ -641,7 +640,7 @@ class OpenAIChat(BaseLLM, BaseModel):
             )
         else:
             full_response = completion_with_retry(self, messages=messages, **params)
-            print("Token Usage: ", full_response["usage"])
+            print(full_response["usage"])
             return LLMResult(
                 generations=[
                     [Generation(text=full_response["choices"][0]["message"]["content"])]
@@ -678,7 +677,7 @@ class OpenAIChat(BaseLLM, BaseModel):
             full_response = await acompletion_with_retry(
                 self, messages=messages, **params
             )
-            print("Token Usage: ", full_response["usage"])
+            print(full_response["usage"])
             return LLMResult(
                 generations=[
                     [Generation(text=full_response["choices"][0]["message"]["content"])]
