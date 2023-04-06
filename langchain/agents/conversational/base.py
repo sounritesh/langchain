@@ -16,7 +16,7 @@ from langchain.tools.base import BaseTool
 class ConversationalAgent(Agent):
     """An agent designed to hold a conversation in addition to using tools."""
 
-    ai_prefix: str = "AI"
+    ai_prefix: str = "assistant"
 
     @property
     def _agent_type(self) -> str:
@@ -40,8 +40,8 @@ class ConversationalAgent(Agent):
         prefix: str = PREFIX,
         suffix: str = SUFFIX,
         format_instructions: str = FORMAT_INSTRUCTIONS,
-        ai_prefix: str = "AI",
-        human_prefix: str = "Human",
+        ai_prefix: str = "assistant",
+        human_prefix: str = "user",
         input_variables: Optional[List[str]] = None,
     ) -> PromptTemplate:
         """Create prompt in the style of the zero shot agent.
@@ -95,8 +95,8 @@ class ConversationalAgent(Agent):
         prefix: str = PREFIX,
         suffix: str = SUFFIX,
         format_instructions: str = FORMAT_INSTRUCTIONS,
-        ai_prefix: str = "AI",
-        human_prefix: str = "Human",
+        ai_prefix: str = "assistant",
+        human_prefix: str = "user",
         input_variables: Optional[List[str]] = None,
         **kwargs: Any,
     ) -> Agent:

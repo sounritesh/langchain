@@ -76,8 +76,8 @@ class CombinedMemory(Memory, BaseModel):
 class ConversationBufferMemory(Memory, BaseModel):
     """Buffer for storing conversation memory."""
 
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     buffer: str = ""
     output_key: Optional[str] = None
@@ -120,8 +120,8 @@ class ConversationBufferMemory(Memory, BaseModel):
 class ConversationBufferWindowMemory(Memory, BaseModel):
     """Buffer for storing conversation memory."""
 
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     buffer: List[str] = Field(default_factory=list)
     memory_key: str = "history"  #: :meta private:
@@ -139,7 +139,7 @@ class ConversationBufferWindowMemory(Memory, BaseModel):
 
     def load_memory_variables(self, inputs: Dict[str, Any]) -> Dict[str, str]:
         """Return history buffer."""
-        return {self.memory_key: "\n".join(self.buffer[-self.k :])}
+        return {self.memory_key: "\n".join(self.buffer[-self.k:])}
 
     def save_context(self, inputs: Dict[str, Any], outputs: Dict[str, str]) -> None:
         """Save context from this conversation to buffer."""
@@ -170,8 +170,8 @@ class ConversationSummaryMemory(Memory, BaseModel):
     """Conversation summarizer to memory."""
 
     buffer: str = ""
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     llm: BaseLLM
     prompt: BasePromptTemplate = SUMMARY_PROMPT
@@ -230,8 +230,8 @@ class ConversationEntityMemory(Memory, BaseModel):
     """Entity extractor & summarizer to memory."""
 
     buffer: List[str] = []
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     llm: BaseLLM
     entity_extraction_prompt: BasePromptTemplate = ENTITY_EXTRACTION_PROMPT
@@ -259,7 +259,7 @@ class ConversationEntityMemory(Memory, BaseModel):
         else:
             prompt_input_key = self.input_key
         output = chain.predict(
-            history="\n".join(self.buffer[-self.k :]),
+            history="\n".join(self.buffer[-self.k:]),
             input=inputs[prompt_input_key],
         )
         if output.strip() == "NONE":
@@ -271,7 +271,7 @@ class ConversationEntityMemory(Memory, BaseModel):
             entity_summaries[entity] = self.store.get(entity, "")
         self.entity_cache = entities
         return {
-            self.chat_history_key: "\n".join(self.buffer[-self.k :]),
+            self.chat_history_key: "\n".join(self.buffer[-self.k:]),
             "entities": entity_summaries,
         }
 
@@ -301,7 +301,7 @@ class ConversationEntityMemory(Memory, BaseModel):
             existing_summary = self.store.get(entity, "")
             output = chain.predict(
                 summary=existing_summary,
-                history="\n".join(self.buffer[-self.k :]),
+                history="\n".join(self.buffer[-self.k:]),
                 input=inputs[prompt_input_key],
                 entity=entity,
             )
@@ -324,8 +324,8 @@ class ConversationSummaryBufferMemory(Memory, BaseModel):
     llm: BaseLLM
     prompt: BasePromptTemplate = SUMMARY_PROMPT
     memory_key: str = "history"
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     output_key: Optional[str] = None
     input_key: Optional[str] = None
@@ -409,8 +409,8 @@ class ConversationKGMemory(Memory, BaseModel):
     entity_extraction_prompt: BasePromptTemplate = ENTITY_EXTRACTION_PROMPT
     llm: BaseLLM
     """Number of previous utterances to include in the context."""
-    human_prefix: str = "Human"
-    ai_prefix: str = "AI"
+    human_prefix: str = "user"
+    ai_prefix: str = "assistant"
     """Prefix to use for AI generated responses."""
     output_key: Optional[str] = None
     input_key: Optional[str] = None
@@ -460,7 +460,7 @@ class ConversationKGMemory(Memory, BaseModel):
         prompt_input_key = self._get_prompt_input_key(inputs)
         chain = LLMChain(llm=self.llm, prompt=self.entity_extraction_prompt)
         output = chain.predict(
-            history="\n".join(self.buffer[-self.k :]),
+            history="\n".join(self.buffer[-self.k:]),
             input=inputs[prompt_input_key],
         )
         return get_entities(output)
@@ -470,7 +470,7 @@ class ConversationKGMemory(Memory, BaseModel):
         chain = LLMChain(llm=self.llm, prompt=self.knowledge_extraction_prompt)
         prompt_input_key = self._get_prompt_input_key(inputs)
         output = chain.predict(
-            history="\n".join(self.buffer[-self.k :]),
+            history="\n".join(self.buffer[-self.k:]),
             input=inputs[prompt_input_key],
             verbose=True,
         )

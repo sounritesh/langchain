@@ -14,7 +14,7 @@ from tests.unit_tests.llms.fake_llm import FakeLLM
 
 def test_memory_ai_prefix() -> None:
     """Test that ai_prefix in the memory component works."""
-    memory = ConversationBufferMemory(memory_key="foo", ai_prefix="Assistant")
+    memory = ConversationBufferMemory(memory_key="foo", ai_prefix="assistant")
     memory.save_context({"input": "bar"}, {"output": "foo"})
     assert memory.buffer == "\nHuman: bar\nAssistant: foo"
 
