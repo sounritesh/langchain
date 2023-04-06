@@ -67,7 +67,7 @@ class ConversationalAgent(Agent):
         )
         template = "\n\n".join([prefix, tool_strings, format_instructions, suffix])
         if input_variables is None:
-            input_variables = ["input", "chat_history", "agent_scratchpad"]
+            input_variables = ["input", "format_instructions", "tools"]
         return PromptTemplate(template=template, input_variables=input_variables)
 
     @property
