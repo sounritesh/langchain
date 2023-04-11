@@ -59,8 +59,6 @@ class ConversationalAgent(Agent):
             A PromptTemplate with the template assembled from the pieces here.
         """
 
-        print("\n CLS: ", cls.memory)
-
         tool_strings = "\n".join(
             [f"> {tool.name}: {tool.description}" for tool in tools]
         )
@@ -120,6 +118,7 @@ class ConversationalAgent(Agent):
             prompt=prompt,
             callback_manager=callback_manager,
         )
+        print("CHAIN: ", llm_chain.__dict__)
         tool_names = [tool.name for tool in tools]
         return cls(
             llm_chain=llm_chain, allowed_tools=tool_names, ai_prefix=ai_prefix, **kwargs
