@@ -65,7 +65,7 @@ class LLMChain(Chain, BaseModel):
     def generate(self, input_list: List[Dict[str, Any]]) -> LLMResult:
         """Generate LLM result from inputs."""
         prompts, stop = self.prep_prompts(input_list)
-        print("PROMPTS: ", prompts[0])
+        # print("PROMPTS: ", prompts[0])
         response = self.llm.generate(prompts, stop=stop)
         return response
 
@@ -96,11 +96,11 @@ class LLMChain(Chain, BaseModel):
                 )
 
             hist = inputs["chat_history"]
-            print("\nINSIDE PREP: ", inputs)
-            print(f"\n HISTORY: {hist}")
+            # print("\nINSIDE PREP: ", inputs)
+            # print(f"\n HISTORY: {hist}")
             if inputs["chat_history"] != '':
                 prompt = prompt.replace(VISUAL_CHATGPT_PREFIX, '')
-                print("\n HIST PRESENT: ", prompt)
+                # print("\n HIST PRESENT: ", prompt)
             prompts.append(prompt)
         return prompts, stop
 
