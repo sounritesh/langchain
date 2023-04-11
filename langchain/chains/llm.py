@@ -94,8 +94,13 @@ class LLMChain(Chain, BaseModel):
                 raise ValueError(
                     "If `stop` is present in any inputs, should be present in all."
                 )
+
+            hist = inputs["chat_history"]
+            print("\nINSIDE PREP: ", inputs)
+            print(f"\n HISTORY: {hist}")
             if inputs["chat_history"] != '':
                 prompt.replace(VISUAL_CHATGPT_PREFIX, '')
+                print("\n HIST PRESENT: ", prompt)
             prompts.append(prompt)
         return prompts, stop
 
