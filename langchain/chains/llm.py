@@ -74,7 +74,6 @@ class LLMChain(Chain, BaseModel):
         if "stop" in input_list[0]:
             stop = input_list[0]["stop"]
 
-        print("\n INSIDE PREP PROMPTS: ", input_list)
         prompts = []
         for inputs in input_list:
             selected_inputs = {k: inputs[k] for k in self.prompt.input_variables}
@@ -86,6 +85,7 @@ class LLMChain(Chain, BaseModel):
                 raise ValueError(
                     "If `stop` is present in any inputs, should be present in all."
                 )
+            print("\n INSIDE PREP PROMPTS: ", prompt)
             prompts.append(prompt)
         return prompts, stop
 
