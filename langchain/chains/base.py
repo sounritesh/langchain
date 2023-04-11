@@ -162,6 +162,7 @@ class Chain(BaseModel, ABC):
             verbose=self.verbose,
         )
         print("\n BASE CHAIN: ", self.__dict__)
+        print("\n INPUTS: ", inputs)
         try:
             outputs = self._call(inputs)
         except (KeyboardInterrupt, Exception) as e:
