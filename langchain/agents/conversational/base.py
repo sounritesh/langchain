@@ -58,6 +58,9 @@ class ConversationalAgent(Agent):
         Returns:
             A PromptTemplate with the template assembled from the pieces here.
         """
+
+        print("CLS: ", dir(cls))
+
         tool_strings = "\n".join(
             [f"> {tool.name}: {tool.description}" for tool in tools]
         )
