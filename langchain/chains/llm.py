@@ -99,7 +99,7 @@ class LLMChain(Chain, BaseModel):
             print("\nINSIDE PREP: ", inputs)
             print(f"\n HISTORY: {hist}")
             if inputs["chat_history"] != '':
-                prompt.replace(VISUAL_CHATGPT_PREFIX, '')
+                prompt = prompt.replace(VISUAL_CHATGPT_PREFIX, '')
                 print("\n HIST PRESENT: ", prompt)
             prompts.append(prompt)
         return prompts, stop
