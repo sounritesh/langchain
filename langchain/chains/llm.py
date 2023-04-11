@@ -153,6 +153,7 @@ class LLMChain(Chain, BaseModel):
 
                 completion = llm.predict(adjective="funny")
         """
+        print("\n INSIDE PREDICT: ", kwargs)
         return self(kwargs)[self.output_key]
 
     async def apredict(self, **kwargs: Any) -> str:
