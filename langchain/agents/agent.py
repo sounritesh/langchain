@@ -312,6 +312,8 @@ class AgentExecutor(Chain, BaseModel):
         **kwargs: Any,
     ) -> AgentExecutor:
         """Create from agent and tools."""
+
+        print("\n FROM AGENT AND TOOLS KWARGS: ", kwargs)
         return cls(
             agent=agent, tools=tools, callback_manager=callback_manager, **kwargs
         )

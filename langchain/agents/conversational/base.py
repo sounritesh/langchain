@@ -118,7 +118,6 @@ class ConversationalAgent(Agent):
             prompt=prompt,
             callback_manager=callback_manager,
         )
-        print("CHAIN: ", llm_chain.__dict__)
         tool_names = [tool.name for tool in tools]
         return cls(
             llm_chain=llm_chain, allowed_tools=tool_names, ai_prefix=ai_prefix, **kwargs
