@@ -60,6 +60,7 @@ class Agent(BaseModel):
         return thoughts
 
     def _get_next_action(self, full_inputs: Dict[str, str]) -> AgentAction:
+        print("ACTION INPUT ", full_inputs)
         full_output = self.llm_chain.predict(**full_inputs)
         parsed_output = self._extract_tool_and_input(full_output)
         print("NEXT ACTION: ", parsed_output)
