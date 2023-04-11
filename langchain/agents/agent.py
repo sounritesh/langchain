@@ -62,6 +62,7 @@ class Agent(BaseModel):
     def _get_next_action(self, full_inputs: Dict[str, str]) -> AgentAction:
         full_output = self.llm_chain.predict(**full_inputs)
         parsed_output = self._extract_tool_and_input(full_output)
+        print("NEXT ACTION: ", parsed_output)
         while parsed_output is None:
             full_output = self._fix_text(full_output)
             full_inputs["agent_scratchpad"] += full_output
