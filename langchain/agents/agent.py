@@ -314,9 +314,11 @@ class AgentExecutor(Chain, BaseModel):
         """Create from agent and tools."""
 
         print("\n FROM AGENT AND TOOLS KWARGS: ", kwargs)
-        return cls(
+        executor = cls(
             agent=agent, tools=tools, callback_manager=callback_manager, **kwargs
         )
+        print(exec.__dict__)
+        return executor
 
     @root_validator()
     def validate_tools(cls, values: Dict) -> Dict:
